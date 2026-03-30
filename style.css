@@ -2,4 +2,15 @@
 
 html {
     font-family:"Iosevka Charon Mono", monospace;
+    background-color:#222222;
+    color:white;
+}
+
+h1.topnav {
+    margin:0px;
+    font-size:44px
+}
+
+hr.topnav {
+    border:2px solid white
 }
