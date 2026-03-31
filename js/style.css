@@ -67,3 +67,7 @@ nav.topnav {
 p {
     margin:0px;
 }
+
+a:link {
+    color:#40B9FF;
+}
