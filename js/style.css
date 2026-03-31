@@ -54,3 +54,16 @@ nav.topnav {
   padding-inline-start: 0;
   border-top: 3px solid white;
 }
+
+.flex-container {
+    display:flex;
+}
+
+.flex-item {
+    flex:1;
+    text-align:center;
+}
+
+p {
+    margin:0px;
+}
