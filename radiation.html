@@ -16,5 +16,47 @@
             <a href="/sources.html" class="topnav">Sources</a>
         </nav>
     </div>
+    <div>
+        <div class="flex-item" style="width:40%;" id="radiation-isotype-simulation">
+            <canvas id="U-238-Chart">
+
+            </canvas>
+        </div>
+    </div>
 </body>
+
+<style>
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('U-238-Chart');
+
+  myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: 'rgba(113,159,145,200)',
+        borderWidth: 1,
+        barPercentage: 1.0,
+        categoryPercentage: 1.0
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+            
+        }
+      }
+    }
+  });
+
+  myChart.data.datasets[0].data[2] = 50; // Update the third data point in the first dataset
+  myChart.update(); 
+</script>
+
 </html>
