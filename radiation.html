@@ -18,8 +18,12 @@
     </div>
     <div>
         <div class="flex-item" style="width:40%;" id="radiation-isotype-simulation">
+          <button onclick="radiationSim()">Start Simulation</button>
             <canvas id="U-238-Chart">
-
+            </canvas>
+            <canvas id="Pu-239-Chart">
+            </canvas>
+            <canvas id="Cs-137-Chart">
             </canvas>
         </div>
     </div>
@@ -32,16 +36,91 @@
 
 
 <script>
-  const ctx = document.getElementById('U-238-Chart');
-
+const ctx = document.getElementById('U-238-Chart');
 cU238 = new Chart(ctx, {
 type: 'bar',
 data: {
-    labels: ['0','','','','','','','','1','','','','','','','','2','','','','','','','','3','','','','','','','','4','','',''],
+    labels: ['0','','','','1','','','','2','','','','3','','','','4','','','','5','','','','6','','','','7','','','','8','','',''],
     datasets: [{
-    label: 'Cumulative Energy over 200 year simulation (MeV)',
+    label: 'Cumulative Energy of U-238 over 200 year simulation (MeV)',
     data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     backgroundColor: 'rgba(113,159,145,200)',
+    borderWidth: 1,
+    barPercentage: 1.0,
+    categoryPercentage: 1.0
+    }]
+},
+options: {
+  scales: {
+    y: {
+      grid: {
+        drawOnChartArea:false,
+        color:'lightGray',
+      },
+    },
+    x: {
+      grid: {
+        drawOnChartArea:false,
+        color:'lightGray',
+      }
+    }
+  },
+  plugins: {
+    legend: {
+      labels: {color:'lightGray'}
+    }
+  }
+}
+}
+);
+
+const ctx1 = document.getElementById('Pu-239-Chart');
+cPu239 = new Chart(ctx1, {
+type: 'bar',
+data: {
+    labels: ['29000','','','','','','','','','29550','','','','','','','','30100','','','','','','','','','30650','','','','','','','','','31200'],
+    datasets: [{
+    label: 'Cumulative Energy of Pu-239 over 200 year simulation (MeV)',
+    data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    backgroundColor: 'rgba(149,133,161,200)',
+    borderWidth: 1,
+    barPercentage: 1.0,
+    categoryPercentage: 1.0
+    }]
+},
+options: {
+  scales: {
+    y: {
+      grid: {
+        drawOnChartArea:false,
+        color:'lightGray',
+      },
+    },
+    x: {
+      grid: {
+        drawOnChartArea:false,
+        color:'lightGray',
+      }
+    }
+  },
+  plugins: {
+    legend: {
+      labels: {color:'lightGray'}
+    }
+  }
+}
+}
+);
+
+const ctx2 = document.getElementById('Cs-137-Chart');
+cCs137 = new Chart(ctx2, {
+type: 'bar',
+data: {
+    labels: ['1164000','','','1164050','','','1164100','','','1164150','','','1164200','','','1164250','','','1164300','','','1164350','','','1164400','','','1164450','','','1164500','','','1164550','',''],
+    datasets: [{
+    label: 'Cumulative Energy of Cs-137 over 200 year simulation (MeV)',
+    data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    backgroundColor: 'rgba(137,172,179,200)',
     borderWidth: 1,
     barPercentage: 1.0,
     categoryPercentage: 1.0
@@ -89,11 +168,11 @@ const decay_energy = {
 };
 
 // Simulation parameters
-const N0 = 500000;
+const N0 = 1000000;
 const time_step = 1;          // year
 const simulation_years = 200;
 const E_critical = 5.9e29;       // meltdown threshold (MeV)
-const trials = 500;
+let trials = 5000;
 
 // Function to generate binomial random number
 function binomial(n, p) {
@@ -130,15 +209,41 @@ function monte_carlo_meltdown(isotope) {
             N -= decays;
 
             if (total_energy >= E_critical) {
-                meltdown_count++;
-                break;
+              meltdown_count++;
+              for (let i=0; i<36; i++) {
+                if (isotope === 'U-238') {
+                  if (total_energy < (i+1)/4) {
+                    energies.push(i)
+                    break;
+                  }
+                }
+                else if (isotope === 'Pu-239') {
+                  if (total_energy < (550/9)*(i+1)+29000) {
+                    energies.push(i)
+                    break;
+                  }
+                }
+              }
             }
         }
         for (let i=0; i<36; i++) {
-            if (total_energy < (i+1)/8) {
-                energies.push(i)
-                break;
+          if (isotope === 'U-238') {
+            if (total_energy < (i+1)/4) {
+              energies.push(i)
+              break;
             }
+          } else if (isotope === 'Pu-239') {
+            if (total_energy < (550/9)*(i+1)+29000) {
+              energies.push(i)
+              break;
+            }
+          } else if (isotope === 'Cs-137') {
+            console.log(total_energy)
+            if (total_energy < (50/3)*(i+1)+1164000) {
+              energies.push(i)
+              break;
+            }
+          }
         }
     }
     return energies
@@ -148,18 +253,34 @@ function animateUpdate() {
   
 }
 
-async function updateList(l) {
+async function updateList(l, chart) {
     for (const e of l) {
       await new Promise(resolve => setTimeout(resolve, 0.1));
-      cU238.data.datasets[0].data[e] += 1;
-      cU238.update();
+      chart.data.datasets[0].data[e] += 1;
+      chart.update();
     }
 }
 
+async function resetList(iso) {
+  iso.data.datasets[0].data = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+  iso.update();
+  }
+
 // Run simulation for each isotope
-for (const iso of Object.keys(half_lives)) {
-    a = monte_carlo_meltdown(iso);
-    updateList(a);
+function radiationSim() {
+  for (const isotope of ['U-238', 'Pu-239','Cs-137']) {
+  if (isotope === 'U-238') {
+    chart = cU238
+  } else if (isotope === "Pu-239") {
+    chart = cPu239
+  } else if (isotope === 'Cs-137') {
+    trials = 500
+    chart = cCs137
+  }
+resetList(chart)
+a = monte_carlo_meltdown(isotope);
+updateList(a, chart);
+}
 }
 
 </script>
