@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/js/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
     <title>Chernobyl — Radiation</title>
 </head>
 <body>
@@ -30,33 +30,138 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
 <script>
   const ctx = document.getElementById('U-238-Chart');
 
-  myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: 'rgba(113,159,145,200)',
-        borderWidth: 1,
-        barPercentage: 1.0,
-        categoryPercentage: 1.0
-      }]
+cU238 = new Chart(ctx, {
+type: 'bar',
+data: {
+    labels: ['0','','','','','','','','1','','','','','','','','2','','','','','','','','3','','','','','','','','4','','',''],
+    datasets: [{
+    label: 'Cumulative Energy over 200 year simulation (MeV)',
+    data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    backgroundColor: 'rgba(113,159,145,200)',
+    borderWidth: 1,
+    barPercentage: 1.0,
+    categoryPercentage: 1.0
+    }]
+},
+options: {
+  scales: {
+    y: {
+      grid: {
+        drawOnChartArea:false,
+        color:'lightGray',
+      },
     },
-    options: {
-      scales: {
-        x: {
-            
-        }
+    x: {
+      grid: {
+        drawOnChartArea:false,
+        color:'lightGray',
       }
     }
-  });
+  },
+  plugins: {
+    legend: {
+      labels: {color:'lightGray'}
+    }
+  }
+}
+}
+);
 
-  myChart.data.datasets[0].data[2] = 50; // Update the third data point in the first dataset
-  myChart.update(); 
+// Physical constants
+const ln2 = Math.log(2);
+
+// Half-lives in years
+const half_lives = {
+    "U-238": 4.468e9,
+    "Pu-239": 24110,
+    "Cs-137": 30.07
+};
+
+// Decay energies in MeV
+const decay_energy = {
+    "U-238": 4.27,
+    "Pu-239": 5.25,
+    "Cs-137": 1.176
+};
+
+// Simulation parameters
+const N0 = 500000;
+const time_step = 1;          // year
+const simulation_years = 200;
+const E_critical = 5.9e29;       // meltdown threshold (MeV)
+const trials = 500;
+
+// Function to generate binomial random number
+function binomial(n, p) {
+    const log_q = Math.log(1-p)
+    let x = 0;
+    let sum = 0
+    while (true) {
+        sum += Math.log(Math.random()) / (n-x)
+        if (sum < log_q) {
+            return x
+        }
+        x++;
+    }
+}
+
+function monte_carlo_meltdown(isotope) {
+    const lambda_decay = ln2 / half_lives[isotope];
+    const decay_eng = decay_energy[isotope]
+    let meltdown_count = 0;
+    let energies = []
+
+    // Per-step decay probability
+    const P = 1 - Math.exp(-lambda_decay * time_step);
+
+    for (let t = 0; t < trials; t++) {
+        let N = N0;
+        let total_energy = 0.0;
+
+        for (let year = 0; year < simulation_years; year++) {
+            if (N <= 0) break;
+
+            const decays = binomial(N, P);
+            total_energy += decays * decay_eng;
+            N -= decays;
+
+            if (total_energy >= E_critical) {
+                meltdown_count++;
+                break;
+            }
+        }
+        for (let i=0; i<36; i++) {
+            if (total_energy < (i+1)/8) {
+                energies.push(i)
+                break;
+            }
+        }
+    }
+    return energies
+}
+
+function animateUpdate() {
+  
+}
+
+async function updateList(l) {
+    for (const e of l) {
+      await new Promise(resolve => setTimeout(resolve, 0.1));
+      cU238.data.datasets[0].data[e] += 1;
+      cU238.update();
+    }
+}
+
+// Run simulation for each isotope
+for (const iso of Object.keys(half_lives)) {
+    a = monte_carlo_meltdown(iso);
+    updateList(a);
+}
+
 </script>
 
 </html>
