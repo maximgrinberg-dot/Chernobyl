@@ -222,7 +222,12 @@ function monte_carlo_meltdown(isotope) {
                     energies.push(i)
                     break;
                   }
-                }
+                } else if (isotope === 'Cs-137') {
+                  if (total_energy < (50/3)*(i+1)+1164000) {
+                    energies.push(i)
+                    break;
+                  }
+                } 
               }
             }
         }
@@ -238,7 +243,6 @@ function monte_carlo_meltdown(isotope) {
               break;
             }
           } else if (isotope === 'Cs-137') {
-            console.log(total_energy)
             if (total_energy < (50/3)*(i+1)+1164000) {
               energies.push(i)
               break;
