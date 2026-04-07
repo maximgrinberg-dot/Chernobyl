@@ -1,0 +1,105 @@
+*:not(.topnav) {
+  box-sizing: border-box;
+}
+/* The actual timeline (the vertical ruler) */
+.timeline {
+  position: relative;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+/* The actual timeline (the vertical ruler) */
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  background-color: #2d924f;
+  top: 0;
+  bottom: 0px;
+  left: 50%;
+  margin-left: -3px;
+  z-index: -10;
+}
+
+/* Container around content */
+.tl-container {
+  padding: 10px 40px;
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+}
+
+/* The circles on the timeline */
+.tl-container::after {
+  content: '';
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: -17px;
+  background-color: black;
+  border: 4px solid #2d924f;
+  top: 0px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+h1.dateheader {
+    text-align:center;
+    background-color:#222222;
+    z-index: 10;
+    padding: 15px 0 15px 0;
+    font-size:60px;
+}
+
+/* Place the container to the left */
+.left {
+  left: 0;
+}
+
+/* Place the container to the right */
+.right {
+  left: 50%;
+}
+
+/* Fix the circle for containers on the right side */
+.right::after {
+  left: -16px;
+}
+
+h1 {
+    margin-top:5px
+}
+
+/* The actual content */
+.tl-content {
+  padding: 20px 30px;
+  background-color: black;
+  position: relative;
+  border-radius: 6px;
+  box-shadow:2px 2px 1px 1px #2d924f;
+}
+
+/* Media queries - Responsive timeline on screens less than 600px wide */
+@media screen and (max-width: 600px) {
+/* Place the timelime to the left */
+  .timeline::after {
+    left: 31px;
+  }
+
+/* Full-width containers */
+  .tl-container {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+
+/* Make sure all circles are at the same spot */
+  .left::after, .right::after {
+    left: 15px;
+  }
+
+/* Make all right containers behave like the left ones */
+  .right {
+    left: 0%;
+  }
+}
