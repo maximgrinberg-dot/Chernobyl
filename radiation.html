@@ -17,9 +17,9 @@
             <a href="/sources.html" class="topnav">Sources</a>
         </nav>
     </div>
-    <div>
+    <div class="flex-container">
         <div class="flex-item" style="width:40%;margin-top:10px" id="radiation-isotype-simulation">
-          <button onclick="radiationSim()" id="simbutton">Start Simulation</button>
+          <button onclick="radiationSim()" id="radsimbutton">Start Simulation</button>
             <canvas id="U-238-Chart">
             </canvas>
             <canvas id="Pu-239-Chart">
@@ -27,11 +27,16 @@
             <canvas id="Cs-137-Chart">
             </canvas>
         </div>
+        <div style="width:4px;height:145vh;margin:0 4% 0 4%;background-color:white"></div>
+        <div class="flex-item" style="width:40%;margin-top:10px" id="europe-simulation">
+          <button onclick="europeSim()" id="eusimbutton">Start Simulation</button>
+          <img id="eu-base" src="/src/svg_tests/svgviewer-output.svg" style="width:88%; margin-right:5%; margin-top:10px  ">
+        </div>
     </div>
 </body>
 
 <style>
-  #simbutton {
+  #radsimbutton {
     font-family:"Iosevka Charon Mono", monospace;
     color: #40B9FF;
     padding: 5px 10px 5px 10px;
@@ -47,9 +52,30 @@
     margin:auto;
     cursor:pointer;
   }
-  #simbutton:active {
+  #radsimbutton:active {
     color:#434343;
     background-color: #40B9FF;
+  }
+
+  #eusimbutton {
+    font-family:"Iosevka Charon Mono", monospace;
+    color: #ff4040;
+    padding: 5px 10px 5px 10px;
+    display: block;
+    background-color: #434343;
+    border-radius: 20px 20px 20px 20px;
+    border: 3px solid #ff4040;
+    font-size: 16px;
+    text-decoration: none;
+    width: 200px;
+    text-align:center;
+    font-weight:bold;
+    margin:auto;
+    cursor:pointer;
+  }
+  #eubutton:active {
+    color:#434343;
+    background-color: #ff4040;
   }
 </style>
 
