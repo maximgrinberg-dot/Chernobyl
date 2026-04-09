@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="/src/favicon.png">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/rad.css">
     <title>Chernobyl — Radiation</title>
 </head>
 <body>
@@ -27,10 +28,15 @@
             <canvas id="Cs-137-Chart">
             </canvas>
         </div>
-        <div style="width:4px;height:145vh;margin:0 4% 0 4%;background-color:white"></div>
-        <div class="flex-item" style="width:40%;margin-top:10px" id="europe-simulation">
-          <button onclick="europeSim()" id="eusimbutton">Start Simulation</button>
-          <img id="eu-base" src="/src/svg_tests/svgviewer-output.svg" style="width:88%; margin-right:5%; margin-top:10px  ">
+        <div style="width:4px;height:145vh;margin:0 6% 0 4%;background-color:white"></div>
+        <div class="flex-item" style="width:40%;margin-top:10px; margin-right:6%" id="europe-simulation">
+          <button onclick="europeSim()" id="eusimbutton" style="margin-right: auto; justify-self: center;">Start Simulation</button>
+          <div class="img-overlay-wrap">
+            <img id="eu-base" src="/src/EUR_Map.svg" style="width:100%; margin-right: auto; margin-top:10px; border:#ffffff 4px solid; justify-self:center;">
+            <svg style="width:101.5%; height:100%;" viewbox="0 0 1000 1000">
+              <circle cx="670" cy="539" r="5" fill="#2d924f"></circle>
+            </svg>
+          </div>
         </div>
     </div>
 </body>
@@ -73,7 +79,7 @@
     margin:auto;
     cursor:pointer;
   }
-  #eubutton:active {
+  #eusimbutton:active {
     color:#434343;
     background-color: #ff4040;
   }
