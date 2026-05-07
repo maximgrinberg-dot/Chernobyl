@@ -361,39 +361,22 @@ updateList(a, chart);
       paths = Array.from(document.getElementsByClassName('euPATH'));
       if (blank) {
         console.log(paths[0])
-          paths[0].style.transition = 'all 7.5s ease-out'
-          paths[1].style.transition = 'all 7.5s ease-out'
-          paths[2].style.transition = 'all 7.5s ease-out'
-          paths[3].style.transition = 'all 7.5s ease-out'
-          paths[4].style.transition = 'all 7.5s ease-out'
-          paths[5].style.transition = 'all 7.5s ease-out'
+        paths.forEach((path, index) => {
+          path.style.transition = 'all 7.5s ease-out'
+        })
 
-          paths[0].style.clipPath = 'circle(100% at 670.7px 376.6px)'
-          setTimeout(() => {
-            paths[1].style.clipPath = 'circle(100% at 507.4px 314.1px)'
-          },200)
-          setTimeout(() => {
-          paths[2].style.clipPath = 'circle(100% at 324px 291px)'
-          },500)
-          setTimeout(() => {
-          paths[3].style.clipPath = 'circle(100% at 227px 266.2px)'
-          },800)
-          setTimeout(() => {
-          paths[4].style.clipPath = 'circle(104% at 166.5px 238.9px)'
-          },1100)
-          setTimeout(() => {
-          paths[5].style.clipPath = 'circle(100% at 67.4px 72px)'
-          },1200)
+        setTimeout(() => {paths[1].style.clipPath = 'circle(100% at 507.4px 314.1px)'},200)
+        setTimeout(() => {paths[2].style.clipPath = 'circle(100% at 324px 291px)'},500)
+        setTimeout(() => {paths[3].style.clipPath = 'circle(100% at 227px 266.2px)'},800)
+        setTimeout(() => {paths[4].style.clipPath = 'circle(107% at 166.5px 238.9px)'},1100)
+        setTimeout(() => {paths[5].style.clipPath = 'circle(100% at 67.4px 72px)'},1200)
 
-          blank = false
-          available = true
+        blank = false
+        available = true
       } else {
-          paths[0].style.transition = 'all 2.5s ease-out'
-          paths[1].style.transition = 'all 2.5s ease-out'
-          paths[2].style.transition = 'all 2.5s ease-out'
-          paths[3].style.transition = 'all 2.5s ease-out'
-          paths[4].style.transition = 'all 2.5s ease-out'
-          paths[5].style.transition = 'all 2.5s ease-out'
+          paths.forEach((path, index) => {
+            path.style.transition = 'all 2.5s ease-out'
+          })
 
           paths[0].style.clipPath = 'circle(0% at 670.7px 376.6px)'
           paths[1].style.clipPath = 'circle(0% at 507.4px 314.1px)'
@@ -402,29 +385,16 @@ updateList(a, chart);
           paths[4].style.clipPath = 'circle(0% at 166.5px 238.9px)'
           paths[5].style.clipPath = 'circle(0% at 67.4px 72px)'
           setTimeout(() => {
-            paths[0].style.transition = 'all 7.5s ease-out'
-            paths[1].style.transition = 'all 7.5s ease-out'
-            paths[2].style.transition = 'all 7.5s ease-out'
-            paths[3].style.transition = 'all 7.5s ease-out'
-            paths[4].style.transition = 'all 7.5s ease-out'
-            paths[5].style.transition = 'all 7.5s ease-out'
-          
-          paths[0].style.clipPath = 'circle(100% at 670.7px 376.6px)'
-          setTimeout(() => {
-            paths[1].style.clipPath = 'circle(100% at 507.4px 314.1px)'
-          },200)
-          setTimeout(() => {
-          paths[2].style.clipPath = 'circle(100% at 324px 291px)'
-          },500)
-          setTimeout(() => {
-          paths[3].style.clipPath = 'circle(100% at 227px 266.2px)'
-          },800)
-          setTimeout(() => {
-          paths[4].style.clipPath = 'circle(104% at 166.5px 238.9px)'
-          },1100)
-          setTimeout(() => {
-          paths[5].style.clipPath = 'circle(100% at 67.4px 72px)'
-          },1200)
+            paths.forEach((path, index) => {
+              path.style.transition = 'all 7.5s ease-out'
+            })
+            
+            paths[0].style.clipPath = 'circle(100% at 670.7px 376.6px)'
+            setTimeout(() => {paths[1].style.clipPath = 'circle(100% at 507.4px 314.1px)'},200)
+            setTimeout(() => {paths[2].style.clipPath = 'circle(100% at 324px 291px)'},500)
+            setTimeout(() => {paths[3].style.clipPath = 'circle(100% at 227px 266.2px)'},800)
+            setTimeout(() => {paths[4].style.clipPath = 'circle(107% at 166.5px 238.9px)'},1100)
+            setTimeout(() => {paths[5].style.clipPath = 'circle(100% at 67.4px 72px)'},1200)
             available = true
           }, 2500)
       }
