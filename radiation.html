@@ -105,13 +105,16 @@
 <script>
 Chart.defaults.font.family = "Iosevka Charon Mono"
 Chart.defaults.font.weight = "bold"
+//Each chart needs to be processed separately given their separate x-axes and y-axes
 const ctx = document.getElementById('U-238-Chart');
 cU238 = new Chart(ctx, {
 type: 'bar',
 data: {
+    //Each chart has 36 "buckets" that each result is placed into
     labels: ['0','','','','1','','','','2','','','','3','','','','4','','','','5','','','','6','','','','7','','','','8','','',''],
     datasets: [{
     label: 'Cumulative Energy of U-238 over 200 year simulation (MeV)',
+    //# of outcomes per bucket
     data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     backgroundColor: 'rgba(113,159,145,200)',
     borderWidth: 1,
@@ -147,6 +150,7 @@ const ctx1 = document.getElementById('Pu-239-Chart');
 cPu239 = new Chart(ctx1, {
 type: 'bar',
 data: {
+    //buckets determined through testing; we wanted each graph to contain almost all of the simulations
     labels: ['29000','','','','','','','','','29550','','','','','','','','30100','','','','','','','','','30650','','','','','','','','','31200'],
     datasets: [{
     label: 'Cumulative Energy of Pu-239 over 200 year simulation (MeV)',
@@ -277,22 +281,22 @@ function monte_carlo_meltdown(isotope) {
             total_energy += decays * decay_eng;
             N -= decays;
 
-            if (total_energy >= E_critical) {
+            if (total_energy >= E_critical) { // after each simulation finishes (either with a meltdown or without one), we check which bucket the total energy falls into
               meltdown_count++;
               for (let i=0; i<36; i++) {
                 if (isotope === 'U-238') {
-                  if (total_energy < (i+1)/4) {
+                  if (total_energy < (i+1)/4) { // bucket math for U-238
                     energies.push(i)
                     break;
                   }
                 }
                 else if (isotope === 'Pu-239') {
-                  if (total_energy < (550/9)*(i+1)+29000) {
+                  if (total_energy < (550/9)*(i+1)+29000) { // bucket math for Pu-239
                     energies.push(i)
                     break;
                   }
                 } else if (isotope === 'Cs-137') {
-                  if (total_energy < (50/3)*(i+1)+1164000) {
+                  if (total_energy < (50/3)*(i+1)+1164000) { // bucket math for Cs-137
                     energies.push(i)
                     break;
                   }
@@ -300,7 +304,7 @@ function monte_carlo_meltdown(isotope) {
               }
             }
         }
-        for (let i=0; i<36; i++) {
+        for (let i=0; i<36; i++) { // bucket code if there isn't a meltdown
           if (isotope === 'U-238') {
             if (total_energy < (i+1)/4) {
               energies.push(i)
@@ -326,6 +330,7 @@ function animateUpdate() {
   
 }
 
+// in order to prevent one minute or more of buffering, we process every simulation first, then display it by delaying the addition of each data point by 0.1s
 async function updateList(l, chart) {
     for (const e of l) {
       await new Promise(resolve => setTimeout(resolve, 0.1));
@@ -334,6 +339,7 @@ async function updateList(l, chart) {
     }
 }
 
+// reset the buckets to empty
 async function resetList(iso) {
   iso.data.datasets[0].data = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   iso.update();
@@ -341,13 +347,14 @@ async function resetList(iso) {
 
 // Run simulation for each isotope
 function radiationSim() {
+  // select chart
   for (const isotope of ['U-238', 'Pu-239','Cs-137']) {
   if (isotope === 'U-238') {
     chart = cU238
   } else if (isotope === "Pu-239") {
     chart = cPu239
   } else if (isotope === 'Cs-137') {
-    trials = 500
+    trials = 500 // trials for Cs-137 are more computationally expensive, so we run just 500 of these rather than the standard 5000
     chart = cCs137
   }
 resetList(chart)
