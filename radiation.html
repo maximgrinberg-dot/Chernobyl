@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="/src/favicon.png">
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/css/rad.css">
+    <link rel="icon" type="image/x-icon" href="./src/favicon.png">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/rad.css">
     <title>Chernobyl — Radiation</title>
 </head>
 <body>
     <div>
-        <h1 class="topnav"><a class="topnav header" href="/index.html">Chernobyl</a></h1>
+        <h1 class="topnav"><a class="topnav header" href="./index.html">Chernobyl</a></h1>
         <nav class="topnav">
           <!-- Topnav appears on all pages, highlighting the active page with the selected class -->
-            <a href="/history.html" class="topnav">History</a>
-            <a href="/effects.html" class="topnav">Effects</a>
-            <a href="/radiation.html" class="topnav selected">Radiation</a>
-            <a href="/sources.html" class="topnav">Sources</a>
+            <a href="./history.html" class="topnav">History</a>
+            <a href="./effects.html" class="topnav">Effects</a>
+            <a href="./radiation.html" class="topnav selected">Radiation</a>
+            <a href="./sources.html" class="topnav">Sources</a>
         </nav>
     </div>
     <!-- Flex display to put simulations side-by-side -->
@@ -37,7 +37,7 @@
           <button onclick="europeSim()" id="eusimbutton" style="margin-right: auto; justify-self: center; margin-bottom:10px">Start Simulation</button>
           <!-- svg display configuration-->
           <div class="img-overlay-wrap">
-            <!-- Base map of Europe --> <img id="eu-base" src="/src/EUR_Map.svg" style="width:100%; margin-right: auto; border:#ffffff 4px solid; justify-self:center;">
+            <!-- Base map of Europe --> <img id="eu-base" src="./src/EUR_Map.svg" style="width:100%; margin-right: auto; border:#ffffff 4px solid; justify-self:center;">
             <!-- svg Canvas on top of the map --> <svg style="width:101.5%; height:100%; border-left:#ffffff 4px solid;" viewbox="240 50 650 850">
 
               <!-- Each layer of radiation on the map, drawn as a red svg path made of bezier curves; cropped using clip-path: circle around the radiation icon at Chernobyl -->
@@ -47,7 +47,7 @@
               <path style="clip-path: circle(0% at 227px 266.2px);" class="euPATH" stroke="#BB1A00" fill="#BB1A0044" d="M 616.500 243.028 C 614.300 243.355, 611.134 244.344, 609.464 245.226 C 603.534 248.359, 584.640 269.717, 576.210 282.819 C 573.619 286.844, 569.445 292.919, 566.933 296.319 C 545.802 324.915, 540.994 337.648, 536.458 377.019 C 532.173 414.211, 536.492 421.451, 565.152 425.127 C 572.476 426.066, 576.371 425.959, 588.495 424.484 C 596.498 423.510, 603.358 423.024, 603.738 423.404 C 605.138 424.805, 602.013 427.695, 590.122 436 C 583.428 440.675, 576.275 445.686, 574.226 447.135 C 562.779 455.232, 548.551 463.789, 541.794 466.642 C 532.187 470.699, 530.682 471.647, 519.147 480.905 C 503.787 493.234, 495.134 508.709, 491.946 529.554 C 490.380 539.790, 491.158 544.670, 495.845 554 L 499.613 561.500 508.056 565.181 C 523.563 571.942, 534.026 572.531, 549.643 567.525 C 553.965 566.140, 562.900 564.062, 569.500 562.907 C 587.898 559.688, 600.145 561.260, 616.619 568.955 C 628.709 574.602, 636.703 580.365, 638.583 584.789 C 640.549 589.414, 640.026 596.392, 637.322 601.635 C 634.822 606.479, 621.210 618.594, 606.390 629.164 C 588.471 641.945, 582 649.206, 582 656.533 C 582 660.197, 587.551 665.343, 593.155 666.874 C 600.357 668.841, 613.284 669.637, 623.684 668.754 C 634.676 667.821, 664.769 660.811, 678.500 655.986 C 697.459 649.324, 714.885 638.206, 730.837 622.595 C 754.845 599.100, 770.565 574.645, 788.750 532.500 C 796.928 513.547, 801.894 499.062, 802.651 491.956 L 803.242 486.412 793.688 471.956 C 777.735 447.819, 772.188 440.087, 737.468 393.594 C 725.710 377.848, 716.499 364.441, 710.609 354.500 C 704.777 344.656, 693.730 328.692, 688.917 323.154 C 686.947 320.886, 684.051 316.662, 682.483 313.766 C 680.914 310.870, 676.815 305.032, 673.375 300.794 C 669.935 296.555, 664.767 289.580, 661.892 285.294 C 652.924 271.925, 632.479 246.650, 628.786 244.368 C 626.729 243.096, 620.563 242.424, 616.500 243.028"></path>
               <path style="clip-path: circle(0% at 166.5px 238.9px);" class="euPATH" stroke="#BB1A00" fill="#BB1A0044" d="M 606 275.302 C 603.525 277.655, 598.125 282.438, 594 285.932 C 585.226 293.364, 585.216 293.374, 577.192 302.697 C 573.797 306.642, 567.414 312.933, 563.008 316.678 C 558.602 320.424, 554.263 325.033, 553.367 326.922 C 551.850 330.117, 551.857 330.579, 553.460 333.555 C 554.407 335.315, 556.516 338.214, 558.146 339.999 C 560.863 342.973, 562.922 348.315, 566.867 362.622 C 568.255 367.654, 571.480 370.927, 589.500 385.592 C 609.682 402.015, 614.275 406.405, 617.652 412.500 C 622.097 420.522, 621.998 424.059, 617.056 433.888 C 613.941 440.085, 612.066 442.483, 608.128 445.313 C 601.689 449.939, 595.181 453.169, 586.637 455.980 C 581.001 457.834, 578.657 459.335, 573.531 464.369 C 563.892 473.834, 556 491.990, 556 504.698 C 556 514.366, 563.643 525.061, 574 529.888 C 581.620 533.438, 594.658 533.334, 611.500 529.588 C 629.532 525.577, 638.923 524.003, 644.820 524.001 C 649.901 524, 653.324 524.508, 678.500 528.996 C 697.504 532.384, 710.803 533.469, 733.500 533.485 C 752.023 533.498, 756.437 533.211, 761.430 531.670 C 770.233 528.953, 773.366 525.332, 775.451 515.466 C 776.377 511.085, 778.049 504.941, 779.166 501.813 C 781.514 495.238, 781.632 495.810, 773.850 476.192 C 764.122 451.673, 759.028 444.369, 745.500 435.549 C 742.200 433.397, 737.518 430.031, 735.095 428.068 C 730.690 424.500, 722.530 419.443, 709.650 412.299 C 705.883 410.210, 697.808 405.199, 691.706 401.164 C 685.603 397.130, 677.436 392.245, 673.555 390.310 C 669.675 388.375, 663.575 384.876, 660 382.534 C 656.425 380.193, 650.921 376.775, 647.769 374.939 C 643.768 372.608, 641.550 370.529, 640.420 368.050 C 639.530 366.098, 637.947 362.670, 636.901 360.434 C 633.324 352.785, 634.969 338.588, 640.881 326.088 C 648.371 310.250, 644.902 295.741, 630.311 281.879 C 624.673 276.523, 615.880 270.998, 613.013 271.012 C 611.432 271.019, 608.831 272.611, 606 275.302 Z"></path> 
               <path style="clip-path: circle(0% at 67.4px 72px);" class="euPATH" stroke="#BB1A00" fill="#BB1A0044" d="M 678.523 438.553 C 672.966 440.463, 668.285 444.030, 664.073 449.563 C 654.538 462.085, 650.503 475.406, 651.175 492.137 C 651.533 501.054, 651.832 502.300, 654.543 506.157 C 660.143 514.126, 671.086 517.724, 692.617 518.676 C 711.383 519.505, 721.494 517.688, 735.668 510.937 C 744.049 506.945, 746.471 505.264, 749.444 501.370 C 753.778 495.694, 754.444 493.394, 753.663 486.801 C 751.963 472.451, 738.885 460.195, 710.133 446.009 C 695.924 438.999, 684.835 436.383, 678.523 438.553"></path>
-              <!-- Radiation icon placed at Chernobyl --> <image x="709" y="500" width="15" height="15" xlink:href="/src/favicon.png"></image>
+              <!-- Radiation icon placed at Chernobyl --> <image x="709" y="500" width="15" height="15" xlink:href="./src/favicon.png"></image>
             </svg>
           </div>
           <p><i>Approximate dosage of radioactive fallout due to Chernobyl disaster</i></p>
