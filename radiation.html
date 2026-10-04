@@ -22,6 +22,35 @@
     <!-- Flex display to put simulations side-by-side -->
     <div class="flex-container">
         <div class="flex-item" style="width:40%;margin-top:10px" id="radiation-isotype-simulation">
+            <div class="sim-note">
+  <h2>Radioactive decay over 200 years</h2>
+  <p>
+    This simulation looks at how much energy a small sample of three isotopes releases through
+    radioactive decay: uranium-238 and plutonium-239, which are found in reactor fuel, and
+    cesium-137, a fission product that made up much of the long-term contamination around
+    Chernobyl. It does not model the explosion or a meltdown. It only shows how an isotope's
+    half-life and decay energy determine how much radiation it gives off over time.
+  </p>
+  <p>
+    Each trial starts with 1,000,000 atoms of one isotope. For every year in a 200-year window,
+    the program decides at random how many atoms decay, using each isotope's half-life to set the
+    chance of decay for a single atom. Every decay adds its energy (4.27 MeV for U-238,
+    5.25 MeV for Pu-239, 1.176 MeV for Cs-137) to a running total. The trial is repeated
+    thousands of times (fewer for Cs-137, which takes longer to compute), and each bar on a chart
+    counts how many trials ended with a total in that energy range.
+  </p>
+  <p>
+    The three charts look very different because the half-lives do. U-238 has a half-life of
+    about 4.5 billion years, so in 200 years we expect only a few hundredths of one decay in the
+    whole sample, and almost every trial lands in the first bar. Pu-239 (half-life about 24,000
+    years) gives a bell-shaped spread centered near 30,000 MeV. Cs-137 (half-life about 30 years)
+    has decayed almost completely by the end of the window, so its totals are the largest, around
+    1.16 million MeV. The spread within each chart is not an error. Decay is random, so repeated
+    trials of the same sample never come out exactly the same.
+  </p>
+
+</div>
+
           <!-- Creates a button that triggers radiationSim, as well as three canvases, one for each isotope-->
           <button onclick="radiationSim()" id="radsimbutton">Start Simulation</button>
             <canvas id="U-238-Chart">
@@ -33,7 +62,23 @@
         </div>
         <div style="width:4px;height:145vh;margin:0 6% 0 4%;background-color:white"></div>
         <div class="flex-item" style="width:40%;margin-top:10px; margin-right:6%" id="europe-simulation">
-          <!-- Creates a button that triggers europeSim -->
+          <div class="sim-note">
+  <h2>Fallout across Europe</h2>
+  <p>
+    This map is an approximate picture of how radioactive material from the reactor spread over
+    Europe in the days after April 26, 1986. The red layers are zones of different fallout
+    levels, and the darkest areas are the most contaminated. The pattern is uneven because
+    deposition depended on the wind direction and on where it rained while the radioactive cloud
+    was overhead, not just on distance from the plant. That is why parts of Belarus, Ukraine and
+    western Russia were heavily affected while some places much closer in a straight line were not.
+  </p>
+  <p>
+    The button plays an animation of the layers growing outward from the plant. It is meant to
+    show the extent of the fallout, not how it changed hour by hour, and the outlines are
+    simplified. Map source: [add the source of your map here].
+  </p>
+</div>
+  }<!-- Creates a button that triggers europeSim -->
           <button onclick="europeSim()" id="eusimbutton" style="margin-right: auto; justify-self: center; margin-bottom:10px">Start Simulation</button>
           <!-- svg display configuration-->
           <div class="img-overlay-wrap">
@@ -54,7 +99,22 @@
         </div>
     </div>
 </body>
-
+<style>
+  .sim-note {
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: left;
+    margin: 0 0 14px 0;
+    color: lightGray;
+  }
+  .sim-note h2 {
+    font-size: 18px;
+    margin: 0 0 6px 0;
+  }
+  .sim-note p {
+    margin: 0 0 8px 0;
+  }
+</style>
 <style>
   #radsimbutton {
     font-family:"Iosevka Charon Mono", monospace;
@@ -416,7 +476,6 @@ updateList(a, chart);
           }, 2500)
       }
     }
-  }
 </script>
 
 </html>
